@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Trip Planning Mobile Application</string>
+    <string-array name="transport_types">
+        <item>Plane</item>
+        <item>Bus</item>
+        <item>Train</item>
+        <item>Car</item>
+        <item>Ship</item>
+    </string-array>
+</resources>
