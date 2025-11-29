@@ -15,16 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
     private RecyclerView recyclerView;
     private TripAdapter adapter;
-
     private ArrayList<Trip> tripList;
     private ArrayList<Trip> originalTripList;
-
     private Button addTripButton, logoutButton, searchButton;
     private EditText searchEditText;
-
     private ActivityResultLauncher<Intent> addTripLauncher;
     public ActivityResultLauncher<Intent> editTripLauncher;
 
@@ -32,8 +28,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // FIND VIEWS
         recyclerView = findViewById(R.id.tripsRecyclerView);
         addTripButton = findViewById(R.id.addTripButton);
         logoutButton = findViewById(R.id.logoutButton);
@@ -50,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
 
         loadTrips();
 
-        // ---------------- ADD NEW TRIP ----------------
         addTripLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
 
             if (result.getResultCode() == RESULT_OK && result.getData() != null) {
@@ -81,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
             addTripLauncher.launch(intent);
         });
 
-        // ---------------- LOGOUT ----------------
         logoutButton.setOnClickListener(v -> {
 
             SharedPreferences prefs = getSharedPreferences("UserData", MODE_PRIVATE);
@@ -92,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
             finish();
         });
 
-        // ---------------- EDIT / DELETE ----------------
         editTripLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
 
             if (result.getResultCode() == RESULT_OK && result.getData() != null) {

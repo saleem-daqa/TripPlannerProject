@@ -25,7 +25,6 @@ public class EditTripActivity extends AppCompatActivity {
     private RadioGroup paymentRadioGroup;
     private RadioButton radioCash, radioCard;
     private CheckBox completedCheckBox;
-
     private Button updateButton, deleteButton, backButton;
     private String startDate = "", endDate = "";
     private int tripPosition = -1;
@@ -114,15 +113,10 @@ public class EditTripActivity extends AppCompatActivity {
 
             DatePickerDialog dialog = new DatePickerDialog(this,
                     (view, year, month, day) -> {
-
                         startCalendar.set(year, month, day);
-
                         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
                         startDate = sdf.format(startCalendar.getTime());
-
                         startDateEditText.setText(startDate);
-
-                        // 🔥 FIX: If new start date > current end date → reset end date
                         if (!endDate.isEmpty() && endCalendar.before(startCalendar)) {
                             endDate = "";
                             endDateEditText.setText("");
@@ -139,9 +133,6 @@ public class EditTripActivity extends AppCompatActivity {
             dialog.show();
         });
 
-        // -----------------------
-        // END DATE PICKER
-        // -----------------------
         endDateEditText.setOnClickListener(v -> {
 
             if (startDate.isEmpty()) {
@@ -175,28 +166,23 @@ public class EditTripActivity extends AppCompatActivity {
             dialog.show();
         });
 
-        // -----------------------
-        // UPDATE BUTTON
-        // -----------------------
+
         updateButton.setOnClickListener(v -> {
 
             if (destinationEditText.getText().toString().trim().isEmpty()) {
                 Toast.makeText(this, "Destination is required", Toast.LENGTH_SHORT).show();
                 return;
             }
-
             if (budgetEditText.getText().toString().trim().isEmpty()) {
                 Toast.makeText(this, "Please enter your budget", Toast.LENGTH_SHORT).show();
                 return;
             }
-
             if (startDate.isEmpty() || endDate.isEmpty()) {
                 Toast.makeText(this, "Please select start and end dates", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             String paymentMethod = "";
-
             if (radioCash.isChecked()) {
                 paymentMethod = "Cash";
             } else if (radioCard.isChecked()) {
@@ -207,7 +193,6 @@ public class EditTripActivity extends AppCompatActivity {
             }
 
             String selectedTransport = transportSpinner.getSelectedItem().toString();
-
             Intent result = new Intent();
             result.putExtra("position", tripPosition);
             result.putExtra("destination", destinationEditText.getText().toString().trim());

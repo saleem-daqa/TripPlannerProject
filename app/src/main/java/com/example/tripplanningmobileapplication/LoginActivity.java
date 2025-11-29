@@ -75,4 +75,9 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
         });
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        passwordEditText.setText("");
+    }
 }
